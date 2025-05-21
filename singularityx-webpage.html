@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SingularityX Evolution - 零界演化科技</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        #intro-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1000;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .content {
+            display: none;
+            padding: 20px;
+            max-width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 100;
+        }
+        
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-top: 2rem;
+        }
+        
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            background: linear-gradient(45deg, #4facfe, #00f2fe, #a6ffcb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: #4facfe;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.5rem;
+            color: #a6ffcb;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .highlight {
+            color: #00f2fe;
+            font-weight: bold;
+        }
+        
+        .vision {
+            background: rgba(0, 0, 30, 0.5);
+            padding: 1.5rem;
+            border-left: 4px solid #4facfe;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .vision p {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        ul {
+            list-style-type: none;
+            margin-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        ul li::before {
+            content: "›";
+            position: absolute;
+            left: 0;
+            color: #4facfe;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .job-position {
+            background: rgba(0, 20, 40, 0.5);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid #1a3a5a;
+        }
+        
+        .contact {
+            background: rgba(0, 30, 60, 0.6);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border: 1px solid #284a6c;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+        
+        .contact-icon {
+            margin-right: 0.8rem;
+            color: #4facfe;
+            font-size: 1.2rem;
+        }
+        
+        #stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: #000;
+            font-weight: bold;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-top: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .architecture {
+            background: rgba(0, 15, 30, 0.5);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .card {
+            background: rgba(5, 15, 30, 0.7);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #1a3045;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #4facfe, transparent);
+        }
+
+        .section-title h2 {
+            margin: 0 1rem;
+            border: none;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div id="stars-container"></div>
+    
+    <div id="intro-animation">
+        <canvas id="intro-canvas" width="300" height="300"></canvas>
+    </div>
+    
+    <div class="content">
+        <header>
+            <img src="/api/placeholder/150/150" alt="SingularityX Logo" class="logo">
+            <h1>SingularityX Evolution</h1>
+            <p class="highlight">杭州零界人工智能科技有限公司</p>
+        </header>
+        
+        <div class="vision">
+            <p>加入我们，用<span class="highlight">AI改写金融系统的演化逻辑</span></p>
+        </div>
+        
+        <div class="card">
+            <div class="section-title">
+                <h2>我们是谁？</h2>
+            </div>
+            <p><span class="highlight">SingularityX Evolution Ltd.(零界演化科技)</span>正在构建一套以<span class="highlight">加速回报定律</span>为基础的AI驱动量化交易系统，目标打造一个具备：</p>
+            <ul>
+                <li>策略自动生成与进化能力</li>
+                <li>智能体级别的博弈与部署结构</li>
+                <li>面向实盘执行的高频/中频交易引擎</li>
+                <li>长期可自演化的金融智能生态系统</li>
+            </ul>
+            <p>我们不是做工具，而是在建造一个<span class="highlight">"自我成长的金融生命体"</span>。</p>
+        </div>
+        
+        <div class="section-title">
+            <h2>热招岗位</h2>
+        </div>
+        
+        <div class="job-position">
+            <h3>1. 强化学习研究工程师（策略演化方向）</h3>
+            <ul>
+                <li>构建自博弈、AlphaZero式智能体演化系统</li>
+                <li>熟悉 PPO/SAC/DDPG/Evolutionary Search等算法</li>
+                <li>RLlib/Stable Baselines3/PyTorch 实战经验优先</li>
+            </ul>
+        </div>
+        
+        <div class="job-position">
+            <h3>2. DevOps/交易系统架构工程师</h3>
+            <ul>
+                <li>搭建GPU训练调度与低延迟实盘执行系统</li>
+                <li>精通容器化部署(Docker/Kubernetes)</li>
+                <li>有交易所接入与高可用系统经验者优先</li>
+            </ul>
+        </div>
+        
+        <div class="job-position">
+            <h3>3. AI产品经理/项目协调官(TPM)</h3>
+            <ul>
+                <li>管理策略引擎与执行系统协同开发</li>
+                <li>熟悉AI项目流程与量化金融语境</li>
+                <li>可作为CEO/CTO技术接口管理人</li>
+            </ul>
+        </div>
+        
+        <div class="architecture card">
+            <div class="section-title">
+                <h2>我们的架构</h2>
+            </div>
+            <p>CTO</p>
+            <ul>
+                <li>策略硏究组(RL+自博弈)：
+                    <ul>
+                        <li>强化学习研究员 x 2</li>
+                        <li>智能体仿真开发 x 1</li>
+                    </ul>
+                </li>
+                <li>策略工程组(量化执行)：
+                    <ul>
+                        <li>Alpha策略工程师 x 2</li>
+                        <li>数据因子工程师 x 1</li>
+                    </ul>
+                </li>
+                <li>系统架构组(实盘执行)：
+                    <ul>
+                        <li>Devops/架构师 x 1</li>
+                        <li>后端开发 x 1</li>
+                    </ul>
+                </li>
+                <li>AI项目协调/产品 x 1</li>
+            </ul>
+        </div>
+        
+        <div class="vision card">
+            <div class="section-title">
+                <h2>我们的愿景</h2>
+            </div>
+            <p class="highlight">"构建一个演化速度超过市场适应速度的智能体金融系统"</p>
+            <p>我们相信，未来的金融不是人设规则，而是AI设法则。</p>
+            <p>我们在打造这个"AI金融生命体"，让它学会成长、对抗、适应与赚钱。</p>
+        </div>
+        
+        <div class="contact">
+            <div class="section-title">
+                <h2>加入我们</h2>
+            </div>
+            <p>求职者请将简历发送至：<span class="highlight">hanxiaoxuan@wereen.com</span>（姓名+应聘岗位）</p>
+            
+            <div class="contact-item">
+                <span class="contact-icon">✉</span>
+                <p>实习联系：韩女士 15275423180</p>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">✉</span>
+                <p>实习联系：王女士 18663979512</p>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">☎</span>
+                <p>联系电话：0532-55673088</p>
+            </div>
+            
+            <a href="mailto:hanxiaoxuan@wereen.com" class="cta-button">立即申请加入</a>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 杭州零界人工智能科技有限公司</p>
+        </div>
+    </div>
+    
+    <script>
+        // Stars background
+        function createStars() {
+            const starsContainer = document.getElementById('stars-container');
+            const starCount = window.innerWidth * 0.15; // Responsive star count
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random star properties
+                const size = Math.random() * 2;
+                const opacity = Math.random() * 0.8 + 0.2;
+                
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.opacity = opacity;
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Intro animation
+        function initIntroAnimation() {
+            const canvas = document.getElementById('intro-canvas');
+            const ctx = canvas.getContext('2d');
+            const stars = [];
+            const starCount = 300;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            let animationProgress = 0;
+            
+            // Create stars
+            for (let i = 0; i < starCount; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * canvas.width * 1.5;
+                const size = Math.random() * 2 + 0.5;
+                
+                stars.push({
+                    x: centerX + Math.cos(angle) * distance,
+                    y: centerY + Math.sin(angle) * distance,
+                    size: size,
+                    speed: 0.02 + Math.random() * 0.03,
+                    opacity: Math.random() * 0.5 + 0.5
+                });
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Progress the animation
+                animationProgress += 0.01;
+                if (animationProgress > 1) {
+                    // End animation
+                    document.getElementById('intro-animation').style.display = 'none';
+                    document.querySelector('.content').style.display = 'block';
+                    return;
+                }
+                
+                // Draw each star
+                stars.forEach(star => {
+                    const progress = Math.min(animationProgress * 1.2, 1);
+                    
+                    // Star converging effect
+                    const currentX = star.x - (star.x - centerX) * progress * 1.2;
+                    const currentY = star.y - (star.y - centerY) * progress * 1.2;
+                    
+                    // Final formation effect
+                    let finalSize = star.size;
+                    let finalOpacity = star.opacity;
+                    
+                    if (progress > 0.8) {
+                        const formationProgress = (progress - 0.8) * 5;
+                        finalOpacity = star.opacity * (1 - formationProgress);
+                    }
+                    
+                    // Draw star
+                    ctx.beginPath();
+                    ctx.arc(currentX, currentY, finalSize, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${finalOpacity})`;
+                    ctx.fill();
+                });
+                
+                // Draw forming logo at the end
+                if (animationProgress > 0.8) {
+                    const logoProgress = (animationProgress - 0.8) * 5;
+                    ctx.beginPath();
+                    
+                    // Drawing "X" logo
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${logoProgress})`;
+                    ctx.lineWidth = 4;
+                    
+                    // First diagonal line
+                    ctx.moveTo(centerX - 40, centerY - 40);
+                    ctx.lineTo(centerX + 40, centerY + 40);
+                    
+                    // Second diagonal line
+                    ctx.moveTo(centerX - 40, centerY + 40);
+                    ctx.lineTo(centerX + 40, centerY - 40);
+                    
+                    ctx.stroke();
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+        
+        // Initialize everything when document is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            initIntroAnimation();
+        });
+    </script>
+</body>
+</html>
